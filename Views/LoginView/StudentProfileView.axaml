@@ -1,0 +1,276 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.StudentProfileView">
+
+  <UserControl.Styles>
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#1A1A2E"/>
+      <Setter Property="Foreground" Value="#E0E0F0"/>
+      <Setter Property="BorderBrush" Value="#3A3A5C"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,12"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="CaretBrush" Value="#7C6FCD"/>
+    </Style>
+    <Style Selector="TextBox:focus">
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="Background" Value="#1A1A2E"/>
+      <Setter Property="Foreground" Value="#E0E0F0"/>
+      <Setter Property="BorderBrush" Value="#3A3A5C"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,12"/>
+      <Setter Property="FontSize" Value="13"/>
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,14"/>
+      <Setter Property="FontSize" Value="15"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.link">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#7C6FCD"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="Button.mode-off">
+      <Setter Property="Background" Value="#1A1A2E"/>
+      <Setter Property="Foreground" Value="#6B6B8D"/>
+      <Setter Property="BorderBrush" Value="#3A3A5C"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,10"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mode-on">
+      <Setter Property="Background" Value="#2A1A4A"/>
+      <Setter Property="Foreground" Value="#E0E0F0"/>
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+      <Setter Property="BorderThickness" Value="2"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,10"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mode-off:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#1E1E3A"/>
+    </Style>
+    <Style Selector="Button.mode-on:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#2A1A4A"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Panel>
+    <!-- Background -->
+    <Border>
+      <Border.Background>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+          <GradientStop Color="#0D0D1A" Offset="0"/>
+          <GradientStop Color="#12122A" Offset="0.5"/>
+          <GradientStop Color="#0D0D1A" Offset="1"/>
+        </LinearGradientBrush>
+      </Border.Background>
+    </Border>
+
+    <!-- Decorative -->
+    <Canvas>
+      <Ellipse Canvas.Left="300" Canvas.Top="100" Width="160" Height="160" Opacity="0.10">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Color="#4FC3F7" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+      <Ellipse Canvas.Left="-30" Canvas.Top="450" Width="140" Height="140" Opacity="0.08">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Color="#7C6FCD" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+    </Canvas>
+
+    <!-- Card -->
+    <Border Margin="30" CornerRadius="16"
+            Background="#12122A"
+            BoxShadow="0 20 60 0 #50000000"
+            BorderThickness="1">
+      <Border.BorderBrush>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+          <GradientStop Color="#3A3A5C" Offset="0"/>
+          <GradientStop Color="#1E1E3A" Offset="1"/>
+        </LinearGradientBrush>
+      </Border.BorderBrush>
+
+      <Grid RowDefinitions="Auto,*,Auto" Margin="36,28,36,28">
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Spacing="0">
+          <Grid Margin="0,0,0,16">
+            <Button Classes="link" Content="← Quay lại"
+                    HorizontalAlignment="Left"
+                    Click="OnBackClick"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+              <Grid Width="24" Height="24">
+                <Ellipse Width="24" Height="24" Fill="#2A2A40"
+                         StrokeThickness="1" Stroke="#3A3A5C"/>
+                <TextBlock Text="1" FontSize="11" FontWeight="Bold"
+                           Foreground="#4A4A6A"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+              </Grid>
+              <Rectangle Width="30" Height="2" Fill="#2A2A40" VerticalAlignment="Center"/>
+              <Grid Width="24" Height="24">
+                <Ellipse Width="24" Height="24">
+                  <Ellipse.Fill>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                      <GradientStop Color="#7C6FCD" Offset="0"/>
+                      <GradientStop Color="#4FC3F7" Offset="1"/>
+                    </LinearGradientBrush>
+                  </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Text="2" FontSize="11" FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+              </Grid>
+            </StackPanel>
+          </Grid>
+
+          <StackPanel Spacing="4" Margin="0,0,0,20">
+            <TextBlock Text="Hồ sơ Học sinh" FontSize="20" FontWeight="Bold"
+                       Foreground="#E0E0F0"/>
+            <TextBlock Text="Cho gia sư biết bạn cần gì"
+                       FontSize="12" Foreground="#6B6B8D"/>
+          </StackPanel>
+        </StackPanel>
+
+        <!-- Scrollable form -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="0">
+
+            <!-- Tên -->
+            <TextBlock Text="Tên hiển thị" FontSize="12"
+                       Foreground="#9090B0" Margin="0,0,0,6"/>
+            <TextBox Name="DisplayNameBox"
+                     Watermark="Tên bạn muốn hiển thị với gia sư"
+                     Margin="0,0,0,16"/>
+
+            <!-- Mô tả -->
+            <TextBlock Text="Mô tả bản thân" FontSize="12"
+                       Foreground="#9090B0" Margin="0,0,0,6"/>
+            <TextBox Name="DescriptionBox"
+                     Watermark="Bạn muốn học gì, mục tiêu của bạn là gì..."
+                     AcceptsReturn="True"
+                     Height="80"
+                     TextWrapping="Wrap"
+                     Margin="0,0,0,16"/>
+
+            <!-- Trình độ học tập -->
+            <TextBlock Text="Trình độ học tập hiện tại" FontSize="12"
+                       Foreground="#9090B0" Margin="0,0,0,8"/>
+            <ComboBox Name="LevelComboBox"
+                      HorizontalAlignment="Stretch"
+                      PlaceholderText="-- Chọn trình độ --"
+                      Margin="0,0,0,16"/>
+
+            <!-- Budget -->
+            <TextBlock Text="Ngân sách / giờ (VND)" FontSize="12"
+                       Foreground="#9090B0" Margin="0,0,0,6"/>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+              <TextBox Name="BudgetBox"
+                       Watermark="VD: 100000"
+                       Grid.Column="0"/>
+              <Border Grid.Column="1"
+                      Background="#2A2A40"
+                      BorderBrush="#3A3A5C"
+                      BorderThickness="1,1,1,1"
+                      CornerRadius="0,8,8,0"
+                      Padding="12,0"
+                      Margin="-1,0,0,0">
+                <TextBlock Text="₫/giờ" Foreground="#6B6B8D"
+                           FontSize="13" VerticalAlignment="Center"/>
+              </Border>
+            </Grid>
+
+            <!-- Yêu cầu gia sư -->
+            <TextBlock Text="Yêu cầu đối với gia sư" FontSize="12"
+                       Foreground="#9090B0" Margin="0,0,0,6"/>
+            <TextBox Name="RequirementBox"
+                     Watermark="VD: Gia sư kiên nhẫn, có kinh nghiệm luyện thi THPT..."
+                     AcceptsReturn="True"
+                     Height="72"
+                     TextWrapping="Wrap"
+                     Margin="0,0,0,16"/>
+
+            <!-- Hình thức học -->
+            <TextBlock Text="Hình thức học tập" FontSize="12"
+                       Foreground="#9090B0" Margin="0,0,0,8"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="8"
+                        Margin="0,0,0,20">
+            <Button Name="ModeOnlineBtn"
+                    Classes="mode-on"
+                    Content="🖥 Online"
+                    Width="110"
+                    HorizontalContentAlignment="Center"
+                    Click="OnModeOnlineClick"/>
+            <Button Name="ModeOfflineBtn"
+                    Classes="mode-off"
+                    Content="🏠 Offline"
+                    Width="110"
+                    HorizontalContentAlignment="Center"
+                    Click="OnModeOfflineClick"/>
+            <Button Name="ModeBothBtn"
+                    Classes="mode-off"
+                    Content="✦ Cả hai"
+                    Width="110"
+                    HorizontalContentAlignment="Center"
+                    Click="OnModeBothClick"/>
+            </StackPanel>
+
+          </StackPanel>
+        </ScrollViewer>
+
+        <!-- Bottom -->
+        <StackPanel Grid.Row="2" Spacing="0" Margin="0,16,0,0">
+          <Border Name="ErrorPanel" IsVisible="False"
+                  Background="#2A1520" BorderBrush="#8B2635"
+                  BorderThickness="1" CornerRadius="6"
+                  Padding="12,8" Margin="0,0,0,12">
+            <TextBlock Name="ErrorText" Foreground="#FC5C65"
+                       FontSize="12" TextWrapping="Wrap"/>
+          </Border>
+
+          <Button Classes="primary"
+                  Content="Hoàn tất đăng ký"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Click="OnSubmitClick"/>
+        </StackPanel>
+
+      </Grid>
+    </Border>
+  </Panel>
+</UserControl>

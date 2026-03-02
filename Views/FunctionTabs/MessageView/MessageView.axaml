@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.MessageView">
+
+  <UserControl.Styles>
+    <Style Selector="Button.conv-item">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.conv-item:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#F5F5FB"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Grid Background="#F7F8FC">
+
+    <!-- Loading -->
+    <TextBlock Name="LoadingText" Text="Đang tải..."
+               FontSize="14" Foreground="#9090A8"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+
+    <!-- Empty state -->
+    <StackPanel Name="EmptyPanel" IsVisible="False"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" Spacing="12">
+      <TextBlock Text="✉" FontSize="48" HorizontalAlignment="Center"/>
+      <TextBlock Text="Chưa có tin nhắn nào" FontSize="15" FontWeight="Bold"
+                 Foreground="#111122" HorizontalAlignment="Center"/>
+      <TextBlock Text="Bắt đầu trò chuyện với gia sư của bạn"
+                 FontSize="13" Foreground="#9090A8"
+                 HorizontalAlignment="Center"/>
+    </StackPanel>
+
+    <!-- Danh sách conversation -->
+    <ScrollViewer Name="ListPanel" IsVisible="False"
+                  VerticalScrollBarVisibility="Auto">
+      <StackPanel Name="ConvList" Background="#FFFFFF" Spacing="0"/>
+    </ScrollViewer>
+
+  </Grid>
+</UserControl>

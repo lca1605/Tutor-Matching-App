@@ -1,0 +1,143 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.FilterPopupView">
+
+  <UserControl.Styles>
+    <Style Selector="Button.apply">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="0,14"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.apply:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.reset">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#AAAACC"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0,14"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mode-off">
+      <Setter Property="Background" Value="#F5F5FA"/>
+      <Setter Property="Foreground" Value="#888899"/>
+      <Setter Property="BorderBrush" Value="#E0E0EE"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,10"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mode-on">
+      <Setter Property="Background" Value="#EEE8FF"/>
+      <Setter Property="Foreground" Value="#7C6FCD"/>
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+      <Setter Property="BorderThickness" Value="1.5"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,10"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Border Background="#FFFFFF"
+          CornerRadius="20,20,0,0"
+          Padding="24,20,24,32"
+          BoxShadow="0 -4 24 0 #20000000">
+    <StackPanel Spacing="0">
+
+      <!-- Handle bar -->
+      <Border Width="40" Height="4" CornerRadius="2"
+              Background="#DDDDEE"
+              HorizontalAlignment="Center"
+              Margin="0,0,0,20"/>
+
+      <!-- Title + Reset -->
+      <Grid Margin="0,0,0,20">
+        <TextBlock Text="Bộ lọc" FontSize="17" FontWeight="Bold"
+                   Foreground="#1A1A2E" VerticalAlignment="Center"/>
+        <Button Classes="reset" HorizontalAlignment="Right"
+                Content="Đặt lại" Click="OnResetClick"/>
+      </Grid>
+
+      <!-- Môn học -->
+      <TextBlock Text="Môn học" FontSize="13" FontWeight="SemiBold"
+                 Foreground="#1A1A2E" Margin="0,0,0,10"/>
+      <ComboBox Name="SubjectCombo"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="-- Tất cả môn --"
+                Margin="0,0,0,20"
+                Background="#F5F5FA"
+                BorderBrush="#E0E0EE"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="14,12"
+                FontSize="13"/>
+
+      <!-- Học phí -->
+      <TextBlock Text="Học phí / giờ (VND)" FontSize="13" FontWeight="SemiBold"
+                 Foreground="#1A1A2E" Margin="0,0,0,10"/>
+      <Grid ColumnDefinitions="*,16,*" Margin="0,0,0,20">
+        <TextBox Grid.Column="0" Name="MinPriceBox"
+                 Watermark="Từ" FontSize="13"
+                 Background="#F5F5FA" BorderBrush="#E0E0EE"
+                 BorderThickness="1" CornerRadius="8" Padding="12,10"/>
+        <TextBlock Grid.Column="1" Text="–"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Foreground="#AAAACC"/>
+        <TextBox Grid.Column="2" Name="MaxPriceBox"
+                 Watermark="Đến" FontSize="13"
+                 Background="#F5F5FA" BorderBrush="#E0E0EE"
+                 BorderThickness="1" CornerRadius="8" Padding="12,10"/>
+      </Grid>
+
+      <!-- Đánh giá tối thiểu -->
+      <TextBlock Text="Đánh giá tối thiểu" FontSize="13" FontWeight="SemiBold"
+                 Foreground="#1A1A2E" Margin="0,0,0,10"/>
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,20">
+        <Button Name="Star0Btn" Classes="mode-on" Content="Tất cả"
+                Width="68" HorizontalContentAlignment="Center"
+                Click="OnStarClick" Tag="0"/>
+        <Button Name="Star3Btn" Classes="mode-off" Content="3⭐+"
+                Width="68" HorizontalContentAlignment="Center"
+                Click="OnStarClick" Tag="3"/>
+        <Button Name="Star4Btn" Classes="mode-off" Content="4⭐+"
+                Width="68" HorizontalContentAlignment="Center"
+                Click="OnStarClick" Tag="4"/>
+        <Button Name="Star5Btn" Classes="mode-off" Content="5⭐"
+                Width="68" HorizontalContentAlignment="Center"
+                Click="OnStarClick" Tag="5"/>
+      </StackPanel>
+
+      <!-- Hình thức dạy -->
+      <TextBlock Text="Hình thức dạy" FontSize="13" FontWeight="SemiBold"
+                 Foreground="#1A1A2E" Margin="0,0,0,10"/>
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,28">
+        <Button Name="ModeAllBtn" Classes="mode-on" Content="Tất cả"
+                Width="80" HorizontalContentAlignment="Center"
+                Click="OnModeClick" Tag="all"/>
+        <Button Name="ModeOnlineBtn" Classes="mode-off" Content="🖥 Online"
+                Width="90" HorizontalContentAlignment="Center"
+                Click="OnModeClick" Tag="online"/>
+        <Button Name="ModeOfflineBtn" Classes="mode-off" Content="🏠 Offline"
+                Width="90" HorizontalContentAlignment="Center"
+                Click="OnModeClick" Tag="offline"/>
+      </StackPanel>
+
+      <!-- Apply -->
+      <Button Classes="apply" Content="Áp dụng"
+              HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Center"
+              Click="OnApplyClick"/>
+
+    </StackPanel>
+  </Border>
+</UserControl>

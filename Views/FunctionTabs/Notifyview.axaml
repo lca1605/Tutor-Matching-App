@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.NotifyView">
+  <Border Background="#F7F8FC">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+      <TextBlock Text="🔔" FontSize="48" HorizontalAlignment="Center"/>
+      <TextBlock Text="Thông báo" FontSize="16" FontWeight="Bold"
+                 Foreground="#111122" HorizontalAlignment="Center"/>
+      <TextBlock Text="Chưa có thông báo nào" FontSize="13"
+                 Foreground="#9090A8" HorizontalAlignment="Center"/>
+    </StackPanel>
+  </Border>
+</UserControl>

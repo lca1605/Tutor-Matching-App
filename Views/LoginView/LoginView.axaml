@@ -1,0 +1,186 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.LoginView">
+
+  <UserControl.Styles>
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#1A1A2E"/>
+      <Setter Property="Foreground" Value="#E0E0F0"/>
+      <Setter Property="BorderBrush" Value="#3A3A5C"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,12"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="CaretBrush" Value="#7C6FCD"/>
+    </Style>
+    <Style Selector="TextBox:focus">
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,14"/>
+      <Setter Property="FontSize" Value="15"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="#5A4DAB"/>
+    </Style>
+    <Style Selector="Button.link">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#7C6FCD"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Panel>
+    <!-- Background gradient -->
+    <Border>
+      <Border.Background>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+          <GradientStop Color="#0D0D1A" Offset="0"/>
+          <GradientStop Color="#12122A" Offset="0.5"/>
+          <GradientStop Color="#0D0D1A" Offset="1"/>
+        </LinearGradientBrush>
+      </Border.Background>
+    </Border>
+
+    <!-- Decorative circles -->
+    <Canvas>
+      <Ellipse Canvas.Left="-60" Canvas.Top="-60" Width="200" Height="200" Opacity="0.15">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Color="#7C6FCD" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+      <Ellipse Canvas.Left="280" Canvas.Top="380" Width="180" Height="180" Opacity="0.12">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Color="#4FC3F7" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+    </Canvas>
+
+    <!-- Main card -->
+    <Border Margin="30" CornerRadius="16"
+            Background="#12122A"
+            BoxShadow="0 20 60 0 #50000000"
+            BorderThickness="1">
+      <Border.BorderBrush>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+          <GradientStop Color="#3A3A5C" Offset="0"/>
+          <GradientStop Color="#1E1E3A" Offset="1"/>
+        </LinearGradientBrush>
+      </Border.BorderBrush>
+
+      <StackPanel Margin="36,40" Spacing="0">
+
+        <!-- Logo -->
+        <Border Width="56" Height="56" CornerRadius="14"
+                HorizontalAlignment="Center" Margin="0,0,0,20">
+          <Border.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+              <GradientStop Color="#7C6FCD" Offset="0"/>
+              <GradientStop Color="#4FC3F7" Offset="1"/>
+            </LinearGradientBrush>
+          </Border.Background>
+          <TextBlock Text="⬡" FontSize="28"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Foreground="White"/>
+        </Border>
+
+        <TextBlock Text="Chào mừng trở lại"
+                   FontSize="22" FontWeight="Bold"
+                   Foreground="#E0E0F0"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,6"/>
+        <TextBlock Text="Đăng nhập để tiếp tục"
+                   FontSize="13" Foreground="#6B6B8D"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,32"/>
+
+        <!-- Username -->
+        <TextBlock Text="Tên đăng nhập" FontSize="12"
+                   Foreground="#9090B0" Margin="0,0,0,6"/>
+        <TextBox Name="UsernameBox"
+                 Watermark="Nhập tên đăng nhập..."
+                 Margin="0,0,0,16"/>
+
+        <!-- Password -->
+        <Grid Margin="0,0,0,6">
+          <TextBlock Text="Mật khẩu" FontSize="12" Foreground="#9090B0"/>
+          <Button Classes="link" Content="Quên mật khẩu?"
+                  HorizontalAlignment="Right"
+                  Click="OnForgotPasswordClick"/>
+        </Grid>
+        <TextBox Name="PasswordBox"
+                 PasswordChar="●"
+                 Watermark="Nhập mật khẩu..."
+                 Margin="0,0,0,10"/>
+
+        <!-- Error -->
+        <Border Name="ErrorPanel" IsVisible="False"
+                Background="#2A1520" BorderBrush="#8B2635"
+                BorderThickness="1" CornerRadius="6"
+                Padding="12,8" Margin="0,0,0,10">
+          <TextBlock Name="ErrorText" Foreground="#FC5C65"
+                     FontSize="12" TextWrapping="Wrap"/>
+        </Border>
+
+        <!-- Remember me -->
+        <CheckBox Name="RememberCheck"
+                  Content="Ghi nhớ đăng nhập"
+                  Foreground="#9090B0" FontSize="13"
+                  Margin="0,0,0,24"/>
+
+        <!-- Login button -->
+        <Button Name="LoginButton" Classes="primary"
+                Content="Đăng Nhập"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Margin="0,0,0,20"
+                Click="OnLoginClick"/>
+
+        <!-- Divider -->
+        <Grid Margin="0,0,0,20">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Separator Grid.Column="0" Background="#2A2A40" Height="1" VerticalAlignment="Center"/>
+          <TextBlock Grid.Column="1" Text="hoặc" Foreground="#4A4A6A"
+                     FontSize="12" Margin="12,0"/>
+          <Separator Grid.Column="2" Background="#2A2A40" Height="1" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- Register link -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+          <TextBlock Text="Chưa có tài khoản?"
+                     Foreground="#6B6B8D" FontSize="13"
+                     VerticalAlignment="Center"/>
+          <Button Classes="link" Content="Đăng ký ngay"
+                  Click="OnRegisterClick"/>
+        </StackPanel>
+
+      </StackPanel>
+    </Border>
+  </Panel>
+</UserControl>

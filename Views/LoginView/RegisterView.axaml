@@ -1,0 +1,243 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.RegisterView">
+
+  <UserControl.Styles>
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#1A1A2E"/>
+      <Setter Property="Foreground" Value="#E0E0F0"/>
+      <Setter Property="BorderBrush" Value="#3A3A5C"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,12"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="CaretBrush" Value="#7C6FCD"/>
+    </Style>
+    <Style Selector="TextBox:focus">
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+    </Style>
+    <Style Selector="TextBox.valid">
+      <Setter Property="BorderBrush" Value="#4CAF50"/>
+    </Style>
+    <Style Selector="TextBox.invalid">
+      <Setter Property="BorderBrush" Value="#FC5C65"/>
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="0,14"/>
+      <Setter Property="FontSize" Value="15"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="#5A4DAB"/>
+    </Style>
+    <Style Selector="Button.primary:disabled /template/ ContentPresenter">
+      <Setter Property="Background" Value="#3A3A5C"/>
+    </Style>
+    <Style Selector="Button.link">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#7C6FCD"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Panel>
+    <!-- Background -->
+    <Border>
+      <Border.Background>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+          <GradientStop Color="#0D0D1A" Offset="0"/>
+          <GradientStop Color="#12122A" Offset="0.5"/>
+          <GradientStop Color="#0D0D1A" Offset="1"/>
+        </LinearGradientBrush>
+      </Border.Background>
+    </Border>
+
+    <!-- Decorative circles -->
+    <Canvas>
+      <Ellipse Canvas.Left="300" Canvas.Top="-40" Width="180" Height="180" Opacity="0.12">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Color="#7C6FCD" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+      <Ellipse Canvas.Left="-50" Canvas.Top="400" Width="160" Height="160" Opacity="0.10">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Color="#4FC3F7" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+    </Canvas>
+
+    <!-- Main card -->
+    <Border Margin="30" CornerRadius="16"
+            Background="#12122A"
+            BoxShadow="0 20 60 0 #50000000"
+            BorderThickness="1">
+      <Border.BorderBrush>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+          <GradientStop Color="#3A3A5C" Offset="0"/>
+          <GradientStop Color="#1E1E3A" Offset="1"/>
+        </LinearGradientBrush>
+      </Border.BorderBrush>
+
+      <StackPanel Margin="36,36" Spacing="0">
+
+        <!-- Back + Title -->
+        <Grid Margin="0,0,0,20">
+          <Button Classes="link" Content="← Quay lại"
+                  HorizontalAlignment="Left"
+                  Click="OnBackClick"/>
+          <TextBlock Text="Tạo Tài Khoản"
+                     FontSize="18" FontWeight="Bold"
+                     Foreground="#E0E0F0"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- Step indicator -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    Margin="0,0,0,28" Spacing="8">
+          <Grid Width="28" Height="28">
+            <Ellipse Width="28" Height="28">
+              <Ellipse.Fill>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                  <GradientStop Color="#7C6FCD" Offset="0"/>
+                  <GradientStop Color="#4FC3F7" Offset="1"/>
+                </LinearGradientBrush>
+              </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock Text="1" FontSize="13" FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+          </Grid>
+
+          <Rectangle Width="40" Height="2" Fill="#2A2A40" VerticalAlignment="Center"/>
+
+          <Grid Width="28" Height="28">
+            <Ellipse Width="28" Height="28" Fill="#1E1E3A"
+                     StrokeThickness="1" Stroke="#3A3A5C"/>
+            <TextBlock Text="2" FontSize="13" FontWeight="Bold"
+                       Foreground="#4A4A6A"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+          </Grid>
+        </StackPanel>
+
+        <!-- Username -->
+        <TextBlock Text="Tên đăng nhập" FontSize="12"
+                   Foreground="#9090B0" Margin="0,0,0,6"/>
+        <TextBox Name="UsernameBox"
+                 Watermark="Chỉ chữ a-z, số 0-9, dấu gạch dưới _"
+                 Margin="0,0,0,4"
+                 TextChanged="OnUsernameChanged"/>
+        <TextBlock Name="UsernameHint" FontSize="11" Margin="2,0,0,14"
+                   Foreground="#6B6B8D"
+                   Text="Ví dụ: nguyen_van_a, user123"/>
+
+        <!-- Password -->
+        <TextBlock Text="Mật khẩu" FontSize="12"
+                   Foreground="#9090B0" Margin="0,0,0,6"/>
+        <TextBox Name="PasswordBox"
+                 PasswordChar="●"
+                 Watermark="Tối thiểu 6 ký tự"
+                 Margin="0,0,0,4"
+                 TextChanged="OnPasswordChanged"/>
+        <TextBlock Name="PasswordHint" FontSize="11" Margin="2,0,0,14"
+                   Foreground="#6B6B8D" Text=" "/>
+
+        <!-- Confirm Password -->
+        <TextBlock Text="Xác nhận mật khẩu" FontSize="12"
+                   Foreground="#9090B0" Margin="0,0,0,6"/>
+        <TextBox Name="ConfirmPasswordBox"
+                 PasswordChar="●"
+                 Watermark="Nhập lại mật khẩu"
+                 Margin="0,0,0,4"
+                 TextChanged="OnConfirmPasswordChanged"/>
+        <TextBlock Name="ConfirmHint" FontSize="11" Margin="2,0,0,20"
+                   Foreground="#6B6B8D" Text=" "/>
+
+        <!-- Role selector -->
+        <TextBlock Text="Bạn là" FontSize="12"
+                   Foreground="#9090B0" Margin="0,0,0,10"/>
+        <Grid ColumnDefinitions="*,12,*" Margin="0,0,0,20">
+
+          <!-- Học sinh (mặc định được chọn) -->
+          <Border Grid.Column="0" Name="RoleStudentBorder"
+                  CornerRadius="8" BorderThickness="2"
+                  BorderBrush="#7C6FCD" Background="#1A1A2E"
+                  Cursor="Hand"
+                  PointerPressed="OnRoleStudentPressed">
+            <StackPanel HorizontalAlignment="Center" Margin="0,14" Spacing="6">
+              <TextBlock Text="🎓" FontSize="24" HorizontalAlignment="Center"/>
+              <TextBlock Name="RoleStudentText"
+                         Text="Học sinh" FontSize="13" FontWeight="SemiBold"
+                         Foreground="#E0E0F0" HorizontalAlignment="Center"/>
+            </StackPanel>
+          </Border>
+
+          <!-- Gia sư -->
+          <Border Grid.Column="2" Name="RoleTutorBorder"
+                  CornerRadius="8" BorderThickness="2"
+                  BorderBrush="#3A3A5C" Background="#1A1A2E"
+                  Cursor="Hand"
+                  PointerPressed="OnRoleTutorPressed">
+            <StackPanel HorizontalAlignment="Center" Margin="0,14" Spacing="6">
+              <TextBlock Text="📚" FontSize="24" HorizontalAlignment="Center"/>
+              <TextBlock Name="RoleTutorText"
+                         Text="Gia sư" FontSize="13" FontWeight="SemiBold"
+                         Foreground="#6B6B8D" HorizontalAlignment="Center"/>
+            </StackPanel>
+          </Border>
+
+        </Grid>
+
+        <!-- Error -->
+        <Border Name="ErrorPanel" IsVisible="False"
+                Background="#2A1520" BorderBrush="#8B2635"
+                BorderThickness="1" CornerRadius="6"
+                Padding="12,8" Margin="0,0,0,16">
+          <TextBlock Name="ErrorText" Foreground="#FC5C65"
+                     FontSize="12" TextWrapping="Wrap"/>
+        </Border>
+
+        <!-- Continue button -->
+        <Button Name="ContinueButton" Classes="primary"
+                Content="Tiếp tục →"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                IsEnabled="False"
+                Margin="0,0,0,20"
+                Click="OnContinueClick"/>
+
+        <!-- Login link -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+          <TextBlock Text="Đã có tài khoản?"
+                     Foreground="#6B6B8D" FontSize="13"
+                     VerticalAlignment="Center"/>
+          <Button Classes="link" Content="Đăng nhập"
+                  Click="OnBackClick"/>
+        </StackPanel>
+
+      </StackPanel>
+    </Border>
+  </Panel>
+</UserControl>

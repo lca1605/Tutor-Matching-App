@@ -1,0 +1,127 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.ChatView">
+
+  <UserControl.Styles>
+    <Style Selector="Button.nav">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.nav:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="Button.send">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="20"/>
+      <Setter Property="Width" Value="40"/>
+      <Setter Property="Height" Value="40"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.send:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.send:disabled /template/ ContentPresenter">
+      <Setter Property="Background" Value="#DDDDEE"/>
+    </Style>
+    <Style Selector="Button.attach">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="6"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.attach:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#F0F0F5"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Grid RowDefinitions="56,*,Auto" Background="#F7F8FC">
+
+    <!-- ── Header ── -->
+    <Border Grid.Row="0" Background="#FFFFFF"
+            BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+            Padding="8,0,16,0">
+      <Grid ColumnDefinitions="40,*,Auto">
+
+        <!-- Back -->
+        <Button Grid.Column="0" Classes="nav"
+                Width="40" Height="40"
+                VerticalAlignment="Center"
+                Click="OnBackClick">
+          <TextBlock Text="←" FontSize="20" Foreground="#111122"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+        </Button>
+
+        <!-- Tên + trạng thái -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Center"
+                    Margin="8,0,0,0">
+          <TextBlock Name="OtherNameText"
+                     Text="..."
+                     FontSize="15" FontWeight="Bold"
+                     Foreground="#111122"/>
+          <TextBlock Name="StatusText"
+                     Text="Đang hoạt động"
+                     FontSize="11" Foreground="#4CAF50"/>
+        </StackPanel>
+
+      </Grid>
+    </Border>
+
+    <!-- ── Tin nhắn ── -->
+    <ScrollViewer Name="MessagesScroll" Grid.Row="1"
+                  VerticalScrollBarVisibility="Auto"
+                  Padding="12,8">
+      <StackPanel Name="MessageList" Spacing="6"/>
+    </ScrollViewer>
+
+    <!-- ── Input bar ── -->
+    <Border Grid.Row="2" Background="#FFFFFF"
+            BorderBrush="#EBEBF0" BorderThickness="0,1,0,0"
+            Padding="8,8">
+      <Grid ColumnDefinitions="Auto,*,Auto">
+
+        <!-- Attach file -->
+        <Button Grid.Column="0" Classes="attach"
+                CornerRadius="20"
+                Click="OnAttachClick">
+          <TextBlock Text="📎" FontSize="18"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+        </Button>
+
+        <!-- Input -->
+        <Border Grid.Column="1"
+                Background="#F5F5FA"
+                CornerRadius="20"
+                Margin="4,0"
+                Padding="14,0">
+          <TextBox Name="MessageInput"
+                   Watermark="Nhắn tin..."
+                   FontSize="14"
+                   Background="Transparent"
+                   BorderThickness="0"
+                   Padding="0,10"
+                   AcceptsReturn="False"
+                   MaxHeight="100"
+                   TextWrapping="Wrap"/>
+        </Border>
+
+        <!-- Send -->
+        <Button Grid.Column="2" Classes="send"
+                IsEnabled="False"
+                Name="SendButton"
+                Click="OnSendClick">
+          <TextBlock Text="➤" FontSize="14"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+        </Button>
+
+      </Grid>
+    </Border>
+
+  </Grid>
+</UserControl>
