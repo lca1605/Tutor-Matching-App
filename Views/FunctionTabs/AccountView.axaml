@@ -1,13 +1,226 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="MyApp.Views.AccountView">
-  <Border Background="#F7F8FC">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
-      <TextBlock Text="👤" FontSize="48" HorizontalAlignment="Center"/>
-      <TextBlock Text="Tài khoản" FontSize="16" FontWeight="Bold"
-                 Foreground="#111122" HorizontalAlignment="Center"/>
-      <TextBlock Text="Chưa có nội dung" FontSize="13"
-                 Foreground="#9090A8" HorizontalAlignment="Center"/>
+
+  <UserControl.Styles>
+    <Style Selector="Button.nav">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.nav:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="0,13"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.primary:disabled /template/ ContentPresenter">
+      <Setter Property="Background" Value="#DDDDEE"/>
+    </Style>
+    <Style Selector="Button.danger">
+      <Setter Property="Background" Value="#FFF0F0"/>
+      <Setter Property="Foreground" Value="#EF4444"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="0,13"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#FFE0E0"/>
+    </Style>
+    <Style Selector="TextBox.field">
+      <Setter Property="Background" Value="#F5F5FA"/>
+      <Setter Property="BorderBrush" Value="#E0E0EE"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="14,12"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="Foreground" Value="#111122"/>
+    </Style>
+    <Style Selector="TextBox.field:focus /template/ Border#PART_BorderElement">
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+      <Setter Property="BorderThickness" Value="1.5"/>
+    </Style>
+  </UserControl.Styles>
+
+  <ScrollViewer VerticalScrollBarVisibility="Auto"
+                Background="#F7F8FC">
+    <StackPanel Spacing="0" Margin="0,0,0,24">
+
+      <!-- ── Avatar section ── -->
+      <Border Background="#FFFFFF"
+              BorderBrush="#EBEBF0"
+              BorderThickness="0,0,0,1"
+              Padding="20,24,20,24"
+              Margin="0,0,0,12">
+        <StackPanel Spacing="16" HorizontalAlignment="Center">
+
+          <!-- Avatar -->
+          <Panel Width="90" Height="90"
+                 HorizontalAlignment="Center">
+            <Border Width="90" Height="90"
+                    CornerRadius="45"
+                    Background="#EEE8FF"
+                    ClipToBounds="True">
+              <Panel>
+                <TextBlock Name="AvatarInitial"
+                           Text="?" FontSize="36" FontWeight="Bold"
+                           Foreground="#7C6FCD"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <Image Name="AvatarImage"
+                       Stretch="UniformToFill"
+                       IsVisible="False"/>
+              </Panel>
+            </Border>
+
+            <!-- Camera button -->
+            <Button Classes="nav"
+                    Width="28" Height="28"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="OnChangeAvatarClick">
+              <Border Width="28" Height="28"
+                      CornerRadius="14"
+                      Background="#7C6FCD">
+                <TextBlock Text="📷" FontSize="13"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+              </Border>
+            </Button>
+          </Panel>
+
+          <!-- Tên + username -->
+          <StackPanel Spacing="4" HorizontalAlignment="Center">
+            <TextBlock Name="DisplayNameText"
+                       Text="..."
+                       FontSize="18" FontWeight="Bold"
+                       Foreground="#111122"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Name="UsernameText"
+                       Text="@..."
+                       FontSize="13" Foreground="#9090A8"
+                       HorizontalAlignment="Center"/>
+            <Border CornerRadius="10" Padding="10,3"
+                    HorizontalAlignment="Center">
+              <Border.Background>
+                <SolidColorBrush Color="#EEE8FF"/>
+              </Border.Background>
+              <TextBlock Name="RoleText"
+                         Text="Học sinh"
+                         FontSize="11" FontWeight="SemiBold"
+                         Foreground="#7C6FCD"/>
+            </Border>
+          </StackPanel>
+
+        </StackPanel>
+      </Border>
+
+      <!-- ── Chỉnh sửa thông tin ── -->
+      <Border Background="#FFFFFF"
+              BorderBrush="#EBEBF0"
+              BorderThickness="0,0,0,1"
+              Padding="20,20,20,20"
+              Margin="0,0,0,12">
+        <StackPanel Spacing="16">
+
+          <TextBlock Text="Thông tin hiển thị"
+                     FontSize="13" FontWeight="SemiBold"
+                     Foreground="#9090A8"/>
+
+          <!-- Tên hiển thị -->
+          <StackPanel Spacing="6">
+            <TextBlock Text="Tên hiển thị" FontSize="13"
+                       Foreground="#333344" FontWeight="SemiBold"/>
+            <TextBox Name="DisplayNameBox" Classes="field"
+                     Watermark="Nhập tên hiển thị"/>
+          </StackPanel>
+
+          <!-- Nút lưu -->
+          <Button Classes="primary" Content="Lưu thay đổi"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Click="OnSaveDisplayNameClick"/>
+
+          <!-- Thông báo kết quả -->
+          <TextBlock Name="SaveResultText"
+                     Text="" FontSize="12"
+                     HorizontalAlignment="Center"
+                     IsVisible="False"/>
+
+        </StackPanel>
+      </Border>
+
+      <!-- ── Đổi mật khẩu ── -->
+      <Border Background="#FFFFFF"
+              BorderBrush="#EBEBF0"
+              BorderThickness="0,0,0,1"
+              Padding="20,20,20,20"
+              Margin="0,0,0,12">
+        <StackPanel Spacing="16">
+
+          <TextBlock Text="Bảo mật"
+                     FontSize="13" FontWeight="SemiBold"
+                     Foreground="#9090A8"/>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Mật khẩu hiện tại" FontSize="13"
+                       Foreground="#333344" FontWeight="SemiBold"/>
+            <TextBox Name="OldPasswordBox" Classes="field"
+                     PasswordChar="●"
+                     Watermark="Nhập mật khẩu hiện tại"/>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Mật khẩu mới" FontSize="13"
+                       Foreground="#333344" FontWeight="SemiBold"/>
+            <TextBox Name="NewPasswordBox" Classes="field"
+                     PasswordChar="●"
+                     Watermark="Tối thiểu 6 ký tự"/>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Xác nhận mật khẩu mới" FontSize="13"
+                       Foreground="#333344" FontWeight="SemiBold"/>
+            <TextBox Name="ConfirmPasswordBox" Classes="field"
+                     PasswordChar="●"
+                     Watermark="Nhập lại mật khẩu mới"/>
+          </StackPanel>
+
+          <Button Classes="primary" Content="Đổi mật khẩu"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Click="OnChangePasswordClick"/>
+
+          <TextBlock Name="PasswordResultText"
+                     Text="" FontSize="12"
+                     HorizontalAlignment="Center"
+                     IsVisible="False"/>
+
+        </StackPanel>
+      </Border>
+
+      <!-- ── Đăng xuất ── -->
+      <Border Padding="20,0">
+        <Button Classes="danger" Content="Đăng xuất"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Click="OnLogoutClick"/>
+      </Border>
+
     </StackPanel>
-  </Border>
+  </ScrollViewer>
 </UserControl>

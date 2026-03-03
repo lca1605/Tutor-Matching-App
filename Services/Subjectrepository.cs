@@ -31,4 +31,15 @@ public class SubjectRepository
             ORDER BY s.name",
             new { TutorProfileId = tutorProfileId });
     }
+
+    /// <summary>Lưu danh sách môn dạy của gia sư</summary>
+    public async Task SaveTutorSubjectsAsync(int tutorProfileId, IEnumerable<int> subjectIds)
+    {
+        foreach (var subjectId in subjectIds)
+            await _db.ExecuteAsync(@"
+                INSERT INTO tutor_subjects (tutor_profile_id, subject_id)
+                VALUES (@TutorProfileId, @SubjectId)
+                ON CONFLICT DO NOTHING",
+                new { TutorProfileId = tutorProfileId, SubjectId = subjectId });
+    }
 }

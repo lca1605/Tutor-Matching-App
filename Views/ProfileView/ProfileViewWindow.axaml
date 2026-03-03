@@ -1,0 +1,259 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyApp.Views.ProfileViewWindow"
+        Title="Hồ sơ"
+        Width="400" Height="660"
+        MinWidth="360"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F7F8FC">
+
+  <Window.Styles>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="0,13"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+  </Window.Styles>
+
+  <Grid RowDefinitions="Auto,*,Auto" Background="#F7F8FC">
+
+    <!-- ── Header ── -->
+    <Border Grid.Row="0" Background="#FFFFFF"
+            BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+            Padding="16,14">
+      <Grid ColumnDefinitions="40,*,40">
+
+        <!-- Nút đóng -->
+        <Button Grid.Column="0" Classes="ghost"
+                Width="36" Height="36"
+                VerticalAlignment="Center"
+                Click="OnCloseClick">
+          <Border Width="32" Height="32" CornerRadius="16"
+                  Background="#F0F0F5">
+            <TextBlock Text="✕" FontSize="12" Foreground="#9090A8"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+          </Border>
+        </Button>
+
+        <TextBlock Grid.Column="1" Text="Hồ sơ"
+                   FontSize="16" FontWeight="Bold"
+                   Foreground="#111122"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+      </Grid>
+    </Border>
+
+    <!-- ── Body ── -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="0">
+
+        <!-- Avatar + tên + role badge -->
+        <Border Background="#FFFFFF" Padding="20,24,20,20"
+                BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                Margin="0,0,0,12">
+          <StackPanel Spacing="12" HorizontalAlignment="Center">
+
+            <Border Width="88" Height="88" CornerRadius="44"
+                    Background="#EEE8FF" ClipToBounds="True"
+                    HorizontalAlignment="Center">
+              <Panel>
+                <TextBlock Name="AvatarInitial" Text="?"
+                           FontSize="34" FontWeight="Bold"
+                           Foreground="#7C6FCD"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <Image Name="AvatarImage" Stretch="UniformToFill"
+                       IsVisible="False"/>
+              </Panel>
+            </Border>
+
+            <StackPanel Spacing="6" HorizontalAlignment="Center">
+              <TextBlock Name="DisplayNameText" Text="..."
+                         FontSize="20" FontWeight="Bold"
+                         Foreground="#111122"
+                         HorizontalAlignment="Center"/>
+              <Border CornerRadius="10" Padding="12,4"
+                      HorizontalAlignment="Center"
+                      Name="RoleBadge">
+                <TextBlock Name="RoleText" Text="Gia sư"
+                           FontSize="12" FontWeight="SemiBold"
+                           Foreground="#7C6FCD"/>
+              </Border>
+            </StackPanel>
+
+          </StackPanel>
+        </Border>
+
+        <!-- Thông tin chính -->
+        <Border Background="#FFFFFF" Padding="20,16"
+                BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                Margin="0,0,0,12"
+                Name="TutorInfoSection">
+          <StackPanel Spacing="16">
+
+            <TextBlock Text="Thông tin" FontSize="12"
+                       FontWeight="SemiBold" Foreground="#9090A8"/>
+
+            <!-- Học phí -->
+            <Grid ColumnDefinitions="28,*">
+              <TextBlock Grid.Column="0" Text="💰" FontSize="15"
+                         VerticalAlignment="Center"/>
+              <StackPanel Grid.Column="1" Spacing="1"
+                          VerticalAlignment="Center">
+                <TextBlock Text="Học phí / giờ" FontSize="11"
+                           Foreground="#9090A8"/>
+                <TextBlock Name="HourlyRateText" Text="..."
+                           FontSize="14" FontWeight="SemiBold"
+                           Foreground="#111122"/>
+              </StackPanel>
+            </Grid>
+
+            <!-- Hình thức -->
+            <Grid ColumnDefinitions="28,*">
+              <TextBlock Grid.Column="0" Text="📍" FontSize="15"
+                         VerticalAlignment="Center"/>
+              <StackPanel Grid.Column="1" Spacing="1"
+                          VerticalAlignment="Center">
+                <TextBlock Text="Hình thức dạy" FontSize="11"
+                           Foreground="#9090A8"/>
+                <TextBlock Name="TeachingModeText" Text="..."
+                           FontSize="14" FontWeight="SemiBold"
+                           Foreground="#111122"/>
+              </StackPanel>
+            </Grid>
+
+            <!-- Bằng cấp -->
+            <Grid ColumnDefinitions="28,*">
+              <TextBlock Grid.Column="0" Text="🎓" FontSize="15"
+                         VerticalAlignment="Center"/>
+              <StackPanel Grid.Column="1" Spacing="1"
+                          VerticalAlignment="Center">
+                <TextBlock Text="Bằng cấp / Nơi học" FontSize="11"
+                           Foreground="#9090A8"/>
+                <TextBlock Name="DegreeText" Text="..."
+                           FontSize="14" FontWeight="SemiBold"
+                           Foreground="#111122"/>
+              </StackPanel>
+            </Grid>
+
+            <!-- Môn dạy -->
+            <StackPanel Spacing="8">
+              <Grid ColumnDefinitions="28,*">
+                <TextBlock Grid.Column="0" Text="📚" FontSize="15"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="Môn dạy"
+                           FontSize="11" Foreground="#9090A8"
+                           VerticalAlignment="Center"/>
+              </Grid>
+              <WrapPanel Name="SubjectPanel" Margin="28,0,0,0"/>
+            </StackPanel>
+
+          </StackPanel>
+        </Border>
+
+        <!-- Thông tin student -->
+        <Border Background="#FFFFFF" Padding="20,16"
+                BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                Margin="0,0,0,12"
+                Name="StudentInfoSection"
+                IsVisible="False">
+          <StackPanel Spacing="16">
+
+            <TextBlock Text="Thông tin" FontSize="12"
+                       FontWeight="SemiBold" Foreground="#9090A8"/>
+
+            <!-- Trình độ -->
+            <Grid ColumnDefinitions="28,*">
+              <TextBlock Grid.Column="0" Text="🎒" FontSize="15"
+                         VerticalAlignment="Center"/>
+              <StackPanel Grid.Column="1" Spacing="1"
+                          VerticalAlignment="Center">
+                <TextBlock Text="Trình độ" FontSize="11"
+                           Foreground="#9090A8"/>
+                <TextBlock Name="LevelText" Text="..."
+                           FontSize="14" FontWeight="SemiBold"
+                           Foreground="#111122"/>
+              </StackPanel>
+            </Grid>
+
+            <!-- Ngân sách -->
+            <Grid ColumnDefinitions="28,*">
+              <TextBlock Grid.Column="0" Text="💵" FontSize="15"
+                         VerticalAlignment="Center"/>
+              <StackPanel Grid.Column="1" Spacing="1"
+                          VerticalAlignment="Center">
+                <TextBlock Text="Ngân sách / giờ" FontSize="11"
+                           Foreground="#9090A8"/>
+                <TextBlock Name="BudgetText" Text="..."
+                           FontSize="14" FontWeight="SemiBold"
+                           Foreground="#111122"/>
+              </StackPanel>
+            </Grid>
+
+            <!-- Hình thức -->
+            <Grid ColumnDefinitions="28,*">
+              <TextBlock Grid.Column="0" Text="📍" FontSize="15"
+                         VerticalAlignment="Center"/>
+              <StackPanel Grid.Column="1" Spacing="1"
+                          VerticalAlignment="Center">
+                <TextBlock Text="Hình thức học" FontSize="11"
+                           Foreground="#9090A8"/>
+                <TextBlock Name="LearningModeText" Text="..."
+                           FontSize="14" FontWeight="SemiBold"
+                           Foreground="#111122"/>
+              </StackPanel>
+            </Grid>
+
+          </StackPanel>
+        </Border>
+
+        <!-- Mô tả -->
+        <Border Background="#FFFFFF" Padding="20,16"
+                BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                Margin="0,0,0,12"
+                Name="DescSection">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Giới thiệu" FontSize="12"
+                       FontWeight="SemiBold" Foreground="#9090A8"/>
+            <TextBlock Name="DescriptionText"
+                       Text="Chưa có giới thiệu."
+                       FontSize="14" Foreground="#333344"
+                       TextWrapping="Wrap" LineHeight="22"/>
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- ── Footer: nút nhắn tin (chỉ hiện khi xem người khác) ── -->
+    <Border Grid.Row="2" Background="#FFFFFF"
+            BorderBrush="#EBEBF0" BorderThickness="0,1,0,0"
+            Padding="20,12"
+            Name="FooterSection">
+      <Button Classes="primary" Content="✉ Nhắn tin"
+              HorizontalAlignment="Stretch"
+              Click="OnMessageClick"/>
+    </Border>
+
+  </Grid>
+</Window>

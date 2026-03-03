@@ -17,35 +17,29 @@ public class Database
         InitializeSchema();
     }
 
-    // ─── Connection ───────────────────────────────────────────────────────────
-
     private IDbConnection CreateConnection()
         => new NpgsqlConnection(_connectionString);
 
     // ─── Core methods ─────────────────────────────────────────────────────────
 
-    /// <summary>Chạy INSERT / UPDATE / DELETE</summary>
     public async Task<int> ExecuteAsync(string sql, object? param = null)
     {
         using var conn = CreateConnection();
         return await conn.ExecuteAsync(sql, param);
     }
 
-    /// <summary>INSERT với RETURNING id</summary>
     public async Task<int> InsertAsync(string sql, object? param = null)
     {
         using var conn = CreateConnection();
         return await conn.ExecuteScalarAsync<int>(sql, param);
     }
 
-    /// <summary>Lấy nhiều dòng</summary>
     public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object? param = null)
     {
         using var conn = CreateConnection();
         return await conn.QueryAsync<T>(sql, param);
     }
 
-    /// <summary>Lấy 1 dòng, null nếu không tìm thấy</summary>
     public async Task<T?> QueryFirstOrDefaultAsync<T>(string sql, object? param = null)
         where T : class
     {
@@ -53,7 +47,6 @@ public class Database
         return await conn.QueryFirstOrDefaultAsync<T?>(sql, param);
     }
 
-    /// <summary>Lấy 1 giá trị scalar</summary>
     public async Task<T?> ScalarAsync<T>(string sql, object? param = null)
     {
         using var conn = CreateConnection();
@@ -75,6 +68,7 @@ public class Database
                 role          TEXT    NOT NULL CHECK(role IN ('student','tutor')),
                 status        TEXT    NOT NULL DEFAULT 'active'
                                       CHECK(status IN ('active','pending','banned')),
+                avatar_path   TEXT,
                 created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
             );
 
@@ -146,6 +140,31 @@ public class Database
 
             CREATE INDEX IF NOT EXISTS idx_messages_conversation
                 ON messages(conversation_id, created_at DESC);
+
+            CREATE TABLE IF NOT EXISTS notifications (
+                id         SERIAL PRIMARY KEY,
+                user_id    INTEGER NOT NULL REFERENCES users(id),
+                type       TEXT    NOT NULL CHECK(type IN ('interest','approval','admin')),
+                title      TEXT    NOT NULL DEFAULT '',
+                body       TEXT    NOT NULL DEFAULT '',
+                is_read    BOOLEAN NOT NULL DEFAULT FALSE,
+                created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_notifications_user
+                ON notifications(user_id, created_at DESC);
+
+            CREATE TABLE IF NOT EXISTS student_interests (
+                student_id  INTEGER NOT NULL REFERENCES users(id),
+                tutor_id    INTEGER NOT NULL REFERENCES users(id),
+                created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                PRIMARY KEY (student_id, tutor_id)
+            );
+        ");
+
+        // Thêm cột avatar_path nếu DB cũ chưa có
+        conn.Execute(@"
+            ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_path TEXT;
         ");
 
         var count = conn.ExecuteScalar<int>("SELECT COUNT(1) FROM subjects");

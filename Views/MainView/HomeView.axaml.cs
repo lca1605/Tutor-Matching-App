@@ -20,6 +20,47 @@ public partial class HomeView : UserControl
     {
         InitializeComponent();
         SetActiveTab(NavTab.Home);
+        LoadAvatar(); // ← thêm dòng này
+    }
+
+    private async void LoadAvatar()
+    {
+        if (Session.CurrentUserId == 0) return;
+
+        var user = await new Data.Repositories.UserRepository(App.Db)
+            .GetByIdAsync(Session.CurrentUserId);
+        if (user == null) return;
+
+        // Lấy tên hiển thị
+        string displayName = user.Username;
+        if (user.Role == "student")
+        {
+            var p = await new Data.Repositories.ProfileRepository(App.Db)
+                .GetStudentByUserIdAsync(user.Id);
+            if (p != null) displayName = p.DisplayName;
+        }
+        else
+        {
+            var p = await new Data.Repositories.ProfileRepository(App.Db)
+                .GetTutorByUserIdAsync(user.Id);
+            if (p != null) displayName = p.FullName;
+        }
+
+        // Hiện ảnh hoặc chữ cái đầu
+        if (!string.IsNullOrEmpty(user.AvatarPath) &&
+            System.IO.File.Exists(user.AvatarPath))
+        {
+            AvatarImage.Source      = new Avalonia.Media.Imaging.Bitmap(user.AvatarPath);
+            AvatarBorder.IsVisible  = true;
+            AvatarInitial.IsVisible = false;
+        }
+        else
+        {
+            AvatarInitial.Text      = displayName.Length > 0
+                ? displayName[0].ToString().ToUpper() : "?";
+            AvatarInitial.IsVisible = true;
+            AvatarBorder.IsVisible  = false;
+        }
     }
 
     // ─── Top bar ──────────────────────────────────────────────────────────────
@@ -42,10 +83,11 @@ public partial class HomeView : UserControl
     private void OnProfileOverlayPressed(object? sender, PointerPressedEventArgs e)
         => ProfileOverlay.IsVisible = false;
 
-    private void OnViewProfileClick(object? sender, RoutedEventArgs e)
+    private async void OnViewProfileClick(object? sender, RoutedEventArgs e)
     {
         ProfileOverlay.IsVisible = false;
-        // TODO: Navigate tới trang hồ sơ
+        var window = new EditProfileWindow(Session.CurrentUserId);
+        await window.ShowDialog(MainWindow.Instance);
     }
 
     private void OnLogoutClick(object? sender, RoutedEventArgs e)

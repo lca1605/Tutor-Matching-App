@@ -110,7 +110,7 @@ public partial class StudentProfileView : UserControl
             LearningMode = _learningMode,
         });
 
-        //MainWindow.Instance.Navigate(new HomeView());
+        MainWindow.Instance.Navigate(new HomeView());
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────

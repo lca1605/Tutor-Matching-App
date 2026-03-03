@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.Views.TutorCardView"
+             Focusable="True">
+
+  <UserControl.Styles>
+    <Style Selector="Border.tag">
+      <Setter Property="Background" Value="#F0EDFF"/>
+      <Setter Property="CornerRadius" Value="12"/>
+      <Setter Property="Padding" Value="10,4"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Panel>
+
+    <!-- Hint LEFT: bỏ qua -->
+    <Border Name="HintLeft"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="24,24,0,0" CornerRadius="8"
+            Background="#EF4444" Padding="12,6"
+            Opacity="0" IsHitTestVisible="False" ZIndex="10">
+      <TextBlock Text="✕ BỎ QUA" FontSize="13" FontWeight="Bold"
+                 Foreground="White"/>
+    </Border>
+
+    <!-- Hint RIGHT: quan tâm -->
+    <Border Name="HintRight"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="0,24,24,0" CornerRadius="8"
+            Background="#4CAF50" Padding="12,6"
+            Opacity="0" IsHitTestVisible="False" ZIndex="10">
+      <TextBlock Text="QUAN TÂM ❤" FontSize="13" FontWeight="Bold"
+                 Foreground="White"/>
+    </Border>
+
+    <!-- Card chính -->
+    <Border Name="CardBorder"
+            CornerRadius="18" Background="#FFFFFF"
+            ClipToBounds="False" Cursor="Hand">
+
+      <Grid RowDefinitions="*,Auto">
+
+        <!-- Ảnh -->
+        <Border Grid.Row="0" ClipToBounds="True"
+                CornerRadius="18,18,0,0" MinHeight="200">
+          <Panel>
+            <Border Name="ImagePlaceholder" Background="#E8E4FF">
+              <TextBlock Text="📷" FontSize="48"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" Opacity="0.3"/>
+            </Border>
+            <Image Name="TutorImage" Stretch="UniformToFill" IsVisible="False"/>
+            <Border VerticalAlignment="Bottom" Height="80">
+              <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                  <GradientStop Color="Transparent" Offset="0"/>
+                  <GradientStop Color="#30000000" Offset="1"/>
+                </LinearGradientBrush>
+              </Border.Background>
+            </Border>
+          </Panel>
+        </Border>
+
+        <!-- Info -->
+        <Border Grid.Row="1" Padding="20,16,20,20">
+          <StackPanel Spacing="0">
+
+            <Grid Margin="0,0,0,4">
+              <StackPanel>
+                <TextBlock Name="TutorNameText" Text="Đang tải..."
+                           FontSize="20" FontWeight="Bold" Foreground="#1A1A2E"/>
+                <TextBlock Name="TutorTitleText" Text=""
+                           FontSize="13" Foreground="#7C6FCD" FontWeight="SemiBold"/>
+              </StackPanel>
+              <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Spacing="2">
+                <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
+                  <TextBlock Text="⭐" FontSize="16"/>
+                  <TextBlock Name="RatingText" Text="--" FontSize="16"
+                             FontWeight="Bold" Foreground="#1A1A2E" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Name="ReviewCountText" Text="-- reviews"
+                           FontSize="11" Foreground="#AAAACC" HorizontalAlignment="Right"/>
+              </StackPanel>
+            </Grid>
+
+            <Border Height="1" Background="#F0F0F0" Margin="0,10,0,10"/>
+
+            <StackPanel Spacing="6" Margin="0,0,0,10">
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="🎓" FontSize="13"/>
+                <TextBlock Name="DegreeText" Text="--" FontSize="13"
+                           Foreground="#444466" VerticalAlignment="Center"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="💼" FontSize="13"/>
+                <TextBlock Name="ExperienceText" Text="--" FontSize="13"
+                           Foreground="#444466" VerticalAlignment="Center"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="💰" FontSize="13"/>
+                <TextBlock Name="PriceText" Text="--" FontSize="13"
+                           Foreground="#444466" VerticalAlignment="Center"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="📍" FontSize="13"/>
+                <TextBlock Name="ModeText" Text="--" FontSize="13"
+                           Foreground="#444466" VerticalAlignment="Center"/>
+              </StackPanel>
+            </StackPanel>
+
+            <WrapPanel Name="SubjectTagPanel" Margin="0,0,0,12"/>
+
+            <TextBlock Name="DescriptionText" Text="" FontSize="13"
+                       Foreground="#666688" TextWrapping="Wrap"
+                       MaxLines="2" TextTrimming="CharacterEllipsis"/>
+
+          </StackPanel>
+        </Border>
+
+      </Grid>
+    </Border>
+
+  </Panel>
+</UserControl>

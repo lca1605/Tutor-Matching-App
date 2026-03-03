@@ -1,0 +1,309 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyApp.Views.EditProfileWindow"
+        Title="Chỉnh sửa hồ sơ"
+        Width="400" Height="680"
+        MinWidth="360"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F7F8FC">
+
+  <Window.Styles>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="0,13"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="Button.mode-on">
+      <Setter Property="Background" Value="#7C6FCD"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,8"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mode-off">
+      <Setter Property="Background" Value="#F0F0F5"/>
+      <Setter Property="Foreground" Value="#9090A8"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,8"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mode-on:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6A5DBB"/>
+    </Style>
+    <Style Selector="Button.mode-off:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#E8E8F0"/>
+    </Style>
+    <Style Selector="TextBox.field">
+      <Setter Property="Background" Value="#F5F5FA"/>
+      <Setter Property="BorderBrush" Value="#E0E0EE"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Padding" Value="14,12"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="Foreground" Value="#111122"/>
+    </Style>
+    <Style Selector="TextBox.field:focus /template/ Border#PART_BorderElement">
+      <Setter Property="BorderBrush" Value="#7C6FCD"/>
+    </Style>
+  </Window.Styles>
+
+  <Grid RowDefinitions="56,*,Auto">
+
+    <!-- Header -->
+    <Border Grid.Row="0" Background="#FFFFFF"
+            BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+            Padding="16,0">
+      <Grid ColumnDefinitions="40,*,40">
+        <Button Grid.Column="0" Classes="ghost"
+                Width="36" Height="36"
+                VerticalAlignment="Center"
+                Click="OnCloseClick">
+          <Border Width="32" Height="32" CornerRadius="16"
+                  Background="#F0F0F5">
+            <TextBlock Text="✕" FontSize="12" Foreground="#9090A8"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+          </Border>
+        </Button>
+        <TextBlock Grid.Column="1" Text="Chỉnh sửa hồ sơ"
+                   FontSize="16" FontWeight="Bold"
+                   Foreground="#111122"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+      </Grid>
+    </Border>
+
+    <!-- Body -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="12" Margin="0,12,0,0">
+
+        <!-- Avatar -->
+        <Border Background="#FFFFFF" Padding="20,20"
+                BorderBrush="#EBEBF0" BorderThickness="0,1,0,1">
+          <StackPanel Spacing="12" HorizontalAlignment="Center">
+            <Panel Width="80" Height="80" HorizontalAlignment="Center">
+              <Border Width="80" Height="80" CornerRadius="40"
+                      Background="#EEE8FF" ClipToBounds="True">
+                <Panel>
+                  <TextBlock Name="AvatarInitial" Text="?"
+                             FontSize="30" FontWeight="Bold"
+                             Foreground="#7C6FCD"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"/>
+                  <Image Name="AvatarImage" Stretch="UniformToFill"
+                         IsVisible="False"/>
+                </Panel>
+              </Border>
+              <Button Classes="ghost" Width="26" Height="26"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Click="OnChangeAvatarClick">
+                <Border Width="26" Height="26" CornerRadius="13"
+                        Background="#7C6FCD">
+                  <TextBlock Text="📷" FontSize="12"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"/>
+                </Border>
+              </Button>
+            </Panel>
+            <TextBlock Text="Nhấn 📷 để đổi ảnh đại diện"
+                       FontSize="12" Foreground="#9090A8"
+                       HorizontalAlignment="Center"/>
+          </StackPanel>
+        </Border>
+
+        <!-- Form student -->
+        <StackPanel Name="StudentForm" Spacing="0">
+
+          <Border Background="#FFFFFF" Padding="20,16"
+                  BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                  Margin="0,0,0,12">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Thông tin cơ bản" FontSize="12"
+                         FontWeight="SemiBold" Foreground="#9090A8"/>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Tên hiển thị" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="StudentNameBox" Classes="field"
+                         Watermark="Nhập tên hiển thị"/>
+              </StackPanel>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Trình độ" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <ComboBox Name="LevelCombo"
+                          HorizontalAlignment="Stretch"
+                          Background="#F5F5FA"
+                          BorderBrush="#E0E0EE"
+                          Foreground="#111122"
+                          Padding="14,10"/>
+              </StackPanel>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Ngân sách / giờ (VND)" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="BudgetBox" Classes="field"
+                         Watermark="VD: 150000"/>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border Background="#FFFFFF" Padding="20,16"
+                  BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                  Margin="0,0,0,12">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Hình thức học" FontSize="12"
+                         FontWeight="SemiBold" Foreground="#9090A8"/>
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Name="SModeOnlineBtn"  Classes="mode-on"
+                        Content="Online"
+                        Click="OnStudentModeOnlineClick"/>
+                <Button Name="SModeOfflineBtn" Classes="mode-off"
+                        Content="Offline"
+                        Click="OnStudentModeOfflineClick"/>
+                <Button Name="SModeBothBtn"    Classes="mode-off"
+                        Content="Cả hai"
+                        Click="OnStudentModeBothClick"/>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border Background="#FFFFFF" Padding="20,16"
+                  BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                  Margin="0,0,0,12">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Yêu cầu &amp; mong muốn" FontSize="12"
+                         FontWeight="SemiBold" Foreground="#9090A8"/>
+              <StackPanel Spacing="6">
+                <TextBlock Text="Môn muốn học / Yêu cầu" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="RequirementBox" Classes="field"
+                         Watermark="VD: Muốn học Toán nâng cao, luyện thi đại học..."
+                         AcceptsReturn="True" MaxHeight="100"
+                         TextWrapping="Wrap"/>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+        </StackPanel>
+
+        <!-- Form tutor -->
+        <StackPanel Name="TutorForm" Spacing="0" IsVisible="False">
+
+          <Border Background="#FFFFFF" Padding="20,16"
+                  BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                  Margin="0,0,0,12">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Thông tin cơ bản" FontSize="12"
+                         FontWeight="SemiBold" Foreground="#9090A8"/>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Họ và tên" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="TutorNameBox" Classes="field"
+                         Watermark="Nhập họ và tên"/>
+              </StackPanel>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Bằng cấp / Trường" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="DegreeBox" Classes="field"
+                         Watermark="VD: Đại học Bách Khoa Hà Nội"/>
+              </StackPanel>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Học phí / giờ (VND)" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="HourlyRateBox" Classes="field"
+                         Watermark="VD: 250000"/>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border Background="#FFFFFF" Padding="20,16"
+                  BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                  Margin="0,0,0,12">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Hình thức dạy" FontSize="12"
+                         FontWeight="SemiBold" Foreground="#9090A8"/>
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Name="TModeOnlineBtn"  Classes="mode-on"
+                        Content="Online"
+                        Click="OnTutorModeOnlineClick"/>
+                <Button Name="TModeOfflineBtn" Classes="mode-off"
+                        Content="Offline"
+                        Click="OnTutorModeOfflineClick"/>
+                <Button Name="TModeBothBtn"    Classes="mode-off"
+                        Content="Cả hai"
+                        Click="OnTutorModeBothClick"/>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border Background="#FFFFFF" Padding="20,16"
+                  BorderBrush="#EBEBF0" BorderThickness="0,0,0,1"
+                  Margin="0,0,0,12">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Giới thiệu &amp; môn dạy" FontSize="12"
+                         FontWeight="SemiBold" Foreground="#9090A8"/>
+              <StackPanel Spacing="6">
+                <TextBlock Text="Mô tả bản thân" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <TextBox Name="DescriptionBox" Classes="field"
+                         Watermark="Giới thiệu kinh nghiệm, phương pháp dạy..."
+                         AcceptsReturn="True" MaxHeight="100"
+                         TextWrapping="Wrap"/>
+              </StackPanel>
+
+              <StackPanel Spacing="8">
+                <TextBlock Text="Môn dạy" FontSize="13"
+                           Foreground="#333344" FontWeight="SemiBold"/>
+                <WrapPanel Name="SubjectCheckPanel"/>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+        </StackPanel>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Footer -->
+    <Border Grid.Row="2" Background="#FFFFFF"
+            BorderBrush="#EBEBF0" BorderThickness="0,1,0,0"
+            Padding="20,12">
+      <StackPanel Spacing="8">
+        <TextBlock Name="ResultText" Text="" FontSize="12"
+                   HorizontalAlignment="Center" IsVisible="False"/>
+        <Button Classes="primary" Content="Lưu hồ sơ"
+                HorizontalAlignment="Stretch"
+                Click="OnSaveClick"/>
+      </StackPanel>
+    </Border>
+
+  </Grid>
+</Window>

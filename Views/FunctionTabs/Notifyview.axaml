@@ -1,13 +1,71 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="MyApp.Views.NotifyView">
-  <Border Background="#F7F8FC">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
-      <TextBlock Text="🔔" FontSize="48" HorizontalAlignment="Center"/>
-      <TextBlock Text="Thông báo" FontSize="16" FontWeight="Bold"
-                 Foreground="#111122" HorizontalAlignment="Center"/>
-      <TextBlock Text="Chưa có thông báo nào" FontSize="13"
-                 Foreground="#9090A8" HorizontalAlignment="Center"/>
-    </StackPanel>
-  </Border>
+
+  <UserControl.Styles>
+    <Style Selector="Button.noti-item">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.noti-item:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#F5F5FB"/>
+    </Style>
+    <Style Selector="Button.mark-all">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.mark-all:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Grid Background="#F7F8FC" RowDefinitions="Auto,*">
+
+    <!-- Header -->
+    <Grid Grid.Row="0" Margin="20,14,20,10">
+      <TextBlock Text="Thông Báo" FontSize="18" FontWeight="Bold"
+                 Foreground="#111122" VerticalAlignment="Center"/>
+      <Button Classes="mark-all" HorizontalAlignment="Right"
+              VerticalAlignment="Center"
+              Click="OnMarkAllReadClick">
+        <TextBlock Text="Đọc tất cả" FontSize="12"
+                   Foreground="#7C6FCD" FontWeight="SemiBold"/>
+      </Button>
+    </Grid>
+
+    <!-- Content -->
+    <Grid Grid.Row="1">
+
+      <!-- Loading -->
+      <TextBlock Name="LoadingText" Text="Đang tải..."
+                 FontSize="14" Foreground="#9090A8"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"/>
+
+      <!-- Empty -->
+      <StackPanel Name="EmptyPanel" IsVisible="False"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" Spacing="12">
+        <TextBlock Text="🔔" FontSize="48" HorizontalAlignment="Center"/>
+        <TextBlock Text="Chưa có thông báo nào" FontSize="15" FontWeight="Bold"
+                   Foreground="#111122" HorizontalAlignment="Center"/>
+        <TextBlock Text="Các thông báo sẽ xuất hiện ở đây"
+                   FontSize="13" Foreground="#9090A8"
+                   HorizontalAlignment="Center"/>
+      </StackPanel>
+
+      <!-- Danh sách -->
+      <ScrollViewer Name="ListPanel" IsVisible="False"
+                    VerticalScrollBarVisibility="Auto">
+        <StackPanel Name="NotiList" Background="#FFFFFF" Spacing="0"/>
+      </ScrollViewer>
+
+    </Grid>
+  </Grid>
 </UserControl>

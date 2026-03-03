@@ -73,8 +73,6 @@ public partial class ChatView : UserControl
 
     private Control BuildMessageBubble(Message msg)
     {
-        System.Console.WriteLine($"SenderId={msg.SenderId} CurrentUserId={_currentUserId} isMine={msg.SenderId == _currentUserId}");
-
         var isMine      = msg.SenderId == _currentUserId;
         var bubbleColor = isMine ? "#7C6FCD" : "#FFFFFF";
         var textColor   = isMine ? "#FFFFFF"  : "#111122";

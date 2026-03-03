@@ -107,6 +107,7 @@
                    Padding="0,10"
                    AcceptsReturn="False"
                    MaxHeight="100"
+                   Foreground= "#111122"
                    TextWrapping="Wrap"/>
         </Border>
 
