@@ -153,9 +153,27 @@ public partial class TutorCardView : UserControl
         var delta = e.GetPosition(this).X - _dragStart.X;
         if (Math.Abs(delta) > 5) _isDragging = true;
         if (!_isDragging) return;
-        _currentX = delta;
-        ApplyDragTransform(delta);
+
+        var rubberDelta = ApplyRubberBand(delta);
+        _currentX = rubberDelta;
+        ApplyDragTransform(rubberDelta);
         UpdateHints(delta);
+    }
+
+    private static double ApplyRubberBand(double delta)
+    {
+        const double threshold = 120;
+        const double resistance = 0.25;
+
+        var sign = Math.Sign(delta);
+        var abs  = Math.Abs(delta);
+
+        if (abs <= threshold)
+            return delta;
+
+        var over     = abs - threshold;
+        var dampened = threshold + over * resistance;
+        return sign * dampened;
     }
 
     private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
@@ -219,11 +237,11 @@ public partial class TutorCardView : UserControl
         };
     }
 
-    private void UpdateHints(double deltaX)
+    private void UpdateHints(double rawDelta)
     {
-        var ratio     = Math.Clamp(Math.Abs(deltaX) / SwipeThreshold, 0, 1);
-        HintRight.Opacity = deltaX > 0 ? ratio : 0;
-        HintLeft.Opacity  = deltaX < 0 ? ratio : 0;
+        var ratio     = Math.Clamp(Math.Abs(rawDelta) / SwipeThreshold, 0, 1);
+        HintRight.Opacity = rawDelta > 0 ? ratio : 0;
+        HintLeft.Opacity  = rawDelta < 0 ? ratio : 0;
     }
 
     // ─── Animations ───────────────────────────────────────────────────────────

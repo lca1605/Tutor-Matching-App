@@ -26,8 +26,6 @@ public partial class App : Application
             desktop.MainWindow = new MainWindow();
         }
 
-        Localizer.Instance.ChangeLanguage("en");
-
         base.OnFrameworkInitializationCompleted();
     }
 }

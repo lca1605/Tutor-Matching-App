@@ -47,7 +47,7 @@
 
   <Panel>
     <!-- Background gradient -->
-    <Border>
+    <Border IsHitTestVisible="False">
       <Border.Background>
         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
           <GradientStop Color="#0D0D1A" Offset="0"/>
@@ -58,7 +58,7 @@
     </Border>
 
     <!-- Decorative circles -->
-    <Canvas>
+    <Canvas IsHitTestVisible="False">
       <Ellipse Canvas.Left="-60" Canvas.Top="-60" Width="200" Height="200" Opacity="0.15">
         <Ellipse.Fill>
           <RadialGradientBrush>
