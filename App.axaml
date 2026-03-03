@@ -4,5 +4,11 @@
              x:Class="MyApp.App">
   <Application.Styles>
     <FluentTheme />
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="{TemplateBinding Background}"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="CaretBrush" Value="{Binding $self.Foreground}"/>
+    </Style>
   </Application.Styles>
 </Application>

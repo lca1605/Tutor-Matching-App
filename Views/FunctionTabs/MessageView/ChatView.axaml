@@ -36,6 +36,10 @@
     <Style Selector="Button.attach:pointerover /template/ ContentPresenter">
       <Setter Property="Background" Value="#F0F0F5"/>
     </Style>
+    <Style Selector="TextBox#MessageInput:focus /template/ Border#PART_BorderElement">
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="BoxShadow" Value="none"/>
+    </Style>
   </UserControl.Styles>
 
   <Grid RowDefinitions="56,*,Auto" Background="#F7F8FC">
@@ -89,8 +93,8 @@
                 CornerRadius="20"
                 Click="OnAttachClick">
           <TextBlock Text="📎" FontSize="18"
-                     HorizontalAlignment="Center"
-                     VerticalAlignment="Center"/>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
         </Button>
 
         <!-- Input -->
@@ -98,17 +102,19 @@
                 Background="#F5F5FA"
                 CornerRadius="20"
                 Margin="4,0"
-                Padding="14,0">
+                Padding="14,8">
           <TextBox Name="MessageInput"
-                   Watermark="Nhắn tin..."
-                   FontSize="14"
-                   Background="Transparent"
-                   BorderThickness="0"
-                   Padding="0,10"
-                   AcceptsReturn="False"
-                   MaxHeight="100"
-                   Foreground= "#111122"
-                   TextWrapping="Wrap"/>
+                  Watermark="Nhắn tin..."
+                  FontSize="14"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  Padding="0"
+                  VerticalAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  AcceptsReturn="False"
+                  MaxHeight="100"
+                  Foreground="#111122"
+                  TextWrapping="Wrap"/>
         </Border>
 
         <!-- Send -->
@@ -117,8 +123,8 @@
                 Name="SendButton"
                 Click="OnSendClick">
           <TextBlock Text="➤" FontSize="14"
-                     HorizontalAlignment="Center"
-                     VerticalAlignment="Center"/>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
         </Button>
 
       </Grid>
